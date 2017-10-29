@@ -15,6 +15,36 @@
     <script type="text/javascript" src="cordova.js"></script>
     <script type="text/javascript" src="index.js"></script>
     <script src="pp.js"></script>
+    <script src="mapp.js"></script>
+
+    <script type="text/javascript">
+        navigator.geolocation.getCurrentPosition(onSuccess, onError, {
+            timeout: 30000
+        });
+
+        function onSuccess(position) {
+            var lat = position.coords.latitude;
+            var lang = position.coords.longitude;
+
+            //Google Maps
+            var myLatlng = new google.maps.LatLng(lat, lang);
+            var mapOptions = {
+                zoom: 4,
+                center: myLatlng
+            }
+            var map = new google.maps.Map(document.getElementById('map-canvas'), mapOptions);
+            var marker = new google.maps.Marker({
+                position: myLatlng,
+                map: map
+            });
+        }
+
+        function onError(error) {
+            alert('code: ' + error.code + '\n' +
+                'message: ' + error.message + '\n');
+        }
+        google.maps.event.addDomListener(window, 'load', onSuccess);
+    </script>
 </head>
 
 <body>
@@ -45,18 +75,18 @@
             <ons-card class="post card-p">
               <ons-list-item class="post_title">
                 <div class="left">
-                  <img class="list-item__thumbnail" src="assets/img/profile-image-03.png" >
+                  <img class="list-item__thumbnail" src="images/vt1.png" >
                 </div>
                 <div class="center">
-                  <div class="list-item__title"><b>david_graham</b></div>
-                  <div class="list-item__subtitle" style="font-size: 12px">Fushimi Inari Shrine, Kyoto</div>
+                  <div class="list-item__title"><b>Thongchai</b></div>
+                  <div class="list-item__subtitle" style="font-size: 12px">Katu, Phuket</div>
                 </div>
                 
               </ons-list-item>
       
               <div style="text-align: center; position: relative;" ondblclick="like(1)"> 
                 <ons-icon size="150px" id="post-like-1" class="post-like" icon="ion-ios-heart"></ons-icon>
-                <img class="post-image" src="images/u1.jpg">
+                <img class="post-image" src="images/2.png">
               </div>
       
               <ons-list-item class="post-button-bar" modifier="nodivider">
@@ -66,25 +96,25 @@
                 </div>
                 
               </ons-list-item>
-              <div class="post-caption"><b>david_graham</b> beautiful kyoto #kyoto #fushimiinarishirine </div>
+              <div class="post-caption"><b>Thongchai</b> beautiful Phuket  </div>
               <div class="post-time">1 HOUR AGO</div>
             </ons-card>
       
             <ons-card class="post card-p">
                <ons-list-item class="post_title">
                 <div class="left">
-                  <img class="list-item__thumbnail" src="assets/img/profile-image-08.png" >
+                  <img class="list-item__thumbnail" src="images/vt2.png" >
                 </div>
                 <div class="center">
-                  <div class="list-item__title"><b>david_graham</b></div>
-                  <div class="list-item__subtitle" style="font-size: 12px">Kinkakuji Temple, Kyoto</div>
+                  <div class="list-item__title"><b>Monsieur P</b></div>
+                  <div class="list-item__subtitle" style="font-size: 12px">Katu, Phuket</div>
                 </div>
                 
               </ons-list-item>
       
               <div style="text-align: center; position: relative;" ondblclick="like(2)">
                 <ons-icon size="150px" id="post-like-2" class="post-like" icon="ion-ios-heart"></ons-icon>
-                <img class="post-image" src="assets/img/post-02.jpg">
+                <img class="post-image" src="images/3.png">
               </div>
       
               <ons-list-item class="post-button-bar" modifier="nodivider">
@@ -96,25 +126,25 @@
                 
               </ons-list-item>
       
-              <div class="post-caption"><b>david_graham</b> Golden Temple ^_^ #kyoto #goldentemple</div>
+              <div class="post-caption"><b>Moncieur P</b> Golden Temple </div>
               <div class="post-time">1 HOUR AGO</div>
             </ons-card>
       
             <ons-card class="post card-p">
               <ons-list-item class="post_title">
                 <div class="left">
-                  <img class="list-item__thumbnail" src="assets/img/profile-image-02.png" >
+                  <img class="list-item__thumbnail" src="images/vt3.png" >
                 </div>
                 <div class="center">
-                  <div class="list-item__title"><b>david_graham</b></div>
-                  <div class="list-item__subtitle" style="font-size: 12px">Tokyo</div>
+                  <div class="list-item__title"><b>Alphabet P</b></div>
+                  <div class="list-item__subtitle" style="font-size: 12px">Katu, Phuket</div>
                 </div>
                 
               </ons-list-item>
       
               <div style="text-align: center; position: relative;" ondblclick="like(3)">
                 <ons-icon size="150px" id="post-like-3" class="post-like" icon="ion-ios-heart"></ons-icon>
-                <img class="post-image" src="assets/img/post-03.jpg">
+                <img class="post-image" src="images/4.png">
               </div>
       
               <ons-list-item class="post-button-bar" modifier="nodivider">
@@ -126,7 +156,7 @@
                 
               </ons-list-item>
       
-              <div class="post-caption"><b>david_graham</b> The harmony sakura brings #sakura #happy #harmony #love</div>
+              <div class="post-caption"><b>Alphabet P</b> The harmony sakura brings</div>
               <div class="post-time">1 HOUR AGO</div>
             </ons-card>
       
@@ -221,7 +251,8 @@
           </ons-toolbar>
           <div class="camera-view"><img id="preview" src="" alt=""></ons-icon></div>
           <div class="camera-button" id="takephoto"><ons-icon class="camera-icon" icon="fa-circle-o"></ons-icon></div>
-        
+          
+          
           <!--<section style="padding: 8px;">
             <ons-button modifier="large" id="takephoto">Take a Photo</ons-button>
           </section>-->
@@ -261,7 +292,8 @@
               display: table;
             }
           </style>
-      
+         
+       
         </ons-page>
       </template>
 
@@ -279,16 +311,67 @@
             <div class="right"></div>
           </ons-toolbar>
 
-          <div>
+          <!--<div>
             <section style="padding: 8px;text-align: center;">
                 <div style="width:100%;height:300px;" id="map_canvas"><ons-icon size="30px" spin icon="md-spinner"></ons-icon></div>
               </section>
-          </div>
-        </ons-page>
+          </div>-->
+          
+      <div id="map" style="width:100%;height:100%"></div>
+          
+          <script>
+            function myMap() {
+              var myCenter = new google.maps.LatLng(7.856088, 98.358960);
+              var mapCanvas = document.getElementById("map");
+              var mapOptions = {center: myCenter, zoom: 8};
+              var map = new google.maps.Map(mapCanvas, mapOptions);
+              var marker = new google.maps.Marker({position:myCenter});
+              marker.setMap(map);
+              
+            }
+       </script>
+       
+       <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAAqirzvb5xK1A00b44Ya123e1xaIF1tDc&callback=myMap"></script>
+      
+      
+      </ons-page>
     </template>
 
 
+    <!--data -->
+    <!--
+    <div class="pagebody">
+      <ons-card class="post card-p">
+        <ons-list-item class="post_title">
+         <div class="left">
+           <img class="list-item__thumbnail" src="assets/img/profile-image-08.png" >
+         </div>
+         <div class="center">
+           <div class="list-item__title"><b></b></div>
+           <div class="list-item__subtitle" style="font-size: 12px">Katu, Phuket</div>
+         </div>
+         
+       </ons-list-item>
 
+       <div style="text-align: center; position: relative;" ondblclick="like(2)">
+         <ons-icon size="150px" id="post-like-2" class="post-like" icon="ion-ios-heart"></ons-icon>
+         <img class="post-image" src="assets/img/post-02.jpg">
+       </div>
+
+       <ons-list-item class="post-button-bar" modifier="nodivider">
+         <div class="center" style="padding-top: 0px">
+           <ons-button class="post-button" modifier="quiet" onclick="like(2)"><ons-icon id="button-post-like-2" icon="ion-ios-heart-outline"></ons-icon></ons-button>
+           <ons-button class="post-button" modifier="quiet"><ons-icon icon="ion-ios-more,material:ion-android-more-vertical"></ons-icon></ons-button>
+          
+         </div>
+         
+       </ons-list-item>
+
+       <div class="post-caption"><b>Moncieur P</b> Golden Temple </div>
+       <div class="post-time">1 HOUR AGO</div>
+     </ons-card>
+    </div>
+  -->
 
 
     <!-- body color-->
@@ -333,6 +416,7 @@
         };
         firebase.initializeApp(config);
     </script>
+
 </body>
 
 </html>
