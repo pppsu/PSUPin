@@ -38,28 +38,6 @@ ons.ready(function() {
             'Speed: ' + position.coords.speed + '\n' +
             'Timestamp: ' + position.timestamp + '\n');
 
-        //Initial Map
-        /*var map;
-        var div = document.getElementById("map-canvas");
-        var map = plugin.google.maps.Map.getMap(div);
-        map.one(plugin.google.maps.event.MAP_READY, function() {
-            //alert("map_canvas : ready.");           
-            map.animateCamera({
-                target: { lat: position.coords.latitude, lng: position.coords.longitude },
-                zoom: 17,
-                tilt: 0,
-                bearing: 140,
-                duration: 5000,
-                padding: 0 // default = 20px
-            }, function() {
-                map.addMarker({
-                    'position': {
-                        lat: position.coords.latitude,
-                        lng: position.coords.longitude
-                    }
-                });
-            });
-        });*/
         var map;
         var marker;
 
@@ -125,7 +103,7 @@ ons.ready(function() {
 });
 
 
-function initTimeline(event) {
+/*function initTimeline(event) {
 
     var url = "http://psupin.azurewebsites.net/pins";
     $.get(url, function(data) {
@@ -136,5 +114,68 @@ function initTimeline(event) {
                 $("#pins").append(rendered);
             });
         });
+    });*/
+
+/*description */
+$(function() {
+
+    firebase.initializeApp({
+        apiKey: "AIzaSyBrGo-o8oDQeVuGEzB79Td_b06xwzQKcN8",
+        authDomain: "psupin-040a.firebaseapp.com",
+        projectId: "psupin-040a"
     });
+
+    // Initialize Cloud Firestore through Firebase
+    var db = firebase.firestore();
+
+    var save = (function() {
+
+        var username = $('#username').val();
+        var description = $('#description').val();
+        var photourl = $('#preview').val();
+        var locattion = $('#location').val();
+
+        db.collection("pins").add({
+                username: username,
+                description: description,
+                photourl: photourl,
+                location: location
+            })
+            .then(function(docRef) {
+                console.log("Document written with ID: ", docRef.id);
+
+                $('#tablebody').empty();
+
+                db.collection("pins").get().then(function(querySnapshot) {
+                    querySnapshot.forEach(function(doc) {
+
+                        console.log(doc.id, " => ", doc.data());
+                        var username = doc.username;
+                        var description = doc.description;
+                        var photourl = doc.photourl;
+                        var location = doc.location;
+
+                        var row = "<tr>" +
+                            "<th scope='row'>" + doc.id + "</th>" +
+                            "<td>" + doc.data().username + "</td>" +
+                            "<td>" + doc.data().description + "</td>" +
+                            "<td>" + doc.data().photourl + "</td>" +
+                            "<td>" + doc.data().location + "</td>" +
+                            "</tr>"
+
+                        $('#tablebody').append(row);
+
+                    });
+                });
+
+            })
+            .catch(function(error) {
+                console.error("Error adding document: ", error);
+            });
+
+    });
+
+
+})
+
 }

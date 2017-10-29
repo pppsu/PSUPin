@@ -103,7 +103,7 @@ ons.ready(function() {
 });
 
 
-function initTimeline(event) {
+/*function initTimeline(event) {
 
     var url = "http://psupin.azurewebsites.net/pins";
     $.get(url, function(data) {
@@ -114,5 +114,68 @@ function initTimeline(event) {
                 $("#pins").append(rendered);
             });
         });
+    });*/
+
+/*description */
+$(function() {
+
+    firebase.initializeApp({
+        apiKey: "AIzaSyBrGo-o8oDQeVuGEzB79Td_b06xwzQKcN8",
+        authDomain: "psupin-040a.firebaseapp.com",
+        projectId: "psupin-040a"
     });
+
+    // Initialize Cloud Firestore through Firebase
+    var db = firebase.firestore();
+
+    var save = (function() {
+
+        var username = $('#username').val();
+        var description = $('#description').val();
+        var photourl = $('#preview').val();
+        var locattion = $('#location').val();
+
+        db.collection("pins").add({
+                username: username,
+                description: description,
+                photourl: photourl,
+                location: location
+            })
+            .then(function(docRef) {
+                console.log("Document written with ID: ", docRef.id);
+
+                $('#pagebody').empty();
+
+                db.collection("pins").get().then(function(querySnapshot) {
+                    querySnapshot.forEach(function(doc) {
+
+                        console.log(doc.id, " => ", doc.data());
+                        var username = doc.username;
+                        var description = doc.description;
+                        var photourl = doc.photourl;
+                        var location = doc.location;
+
+                        var row = "<tr>" +
+                            "<th scope='row'>" + doc.id + "</th>" +
+                            "<td>" + doc.data().username + "</td>" +
+                            "<td>" + doc.data().description + "</td>" +
+                            "<td>" + doc.data().photourl + "</td>" +
+                            "<td>" + doc.data().location + "</td>" +
+                            "</tr>"
+
+                        $('#pagebody').append(row);
+
+                    });
+                });
+
+            })
+            .catch(function(error) {
+                console.error("Error adding document: ", error);
+            });
+
+    });
+
+
+})
+
 }

@@ -11,9 +11,10 @@
     <script src="js/jquery/jquery.js"></script>
     <script src="js/onsenui/onsenui.js"></script>
     <script src="js/mustache/mustache.js"></script>
-    <script src="pp.js"></script>
+
     <script type="text/javascript" src="cordova.js"></script>
     <script type="text/javascript" src="index.js"></script>
+    <script src="pp.js"></script>
 </head>
 
 <body>
@@ -47,8 +48,8 @@
                   <img class="list-item__thumbnail" src="assets/img/profile-image-03.png" >
                 </div>
                 <div class="center">
-                  <div class="list-item__title"><b>david_graham</b></div>
-                  <div class="list-item__subtitle" style="font-size: 12px">Fushimi Inari Shrine, Kyoto</div>
+                  <div class="list-item__title"><b>Thongchai</b></div>
+                  <div class="list-item__subtitle" style="font-size: 12px">Katu, Phuket</div>
                 </div>
                 
               </ons-list-item>
@@ -65,7 +66,7 @@
                 </div>
                 
               </ons-list-item>
-              <div class="post-caption"><b>david_graham</b> beautiful kyoto #kyoto #fushimiinarishirine </div>
+              <div class="post-caption"><b>Thongchai</b> beautiful Phuket  </div>
               <div class="post-time">1 HOUR AGO</div>
             </ons-card>
       
@@ -75,8 +76,8 @@
                   <img class="list-item__thumbnail" src="assets/img/profile-image-08.png" >
                 </div>
                 <div class="center">
-                  <div class="list-item__title"><b>david_graham</b></div>
-                  <div class="list-item__subtitle" style="font-size: 12px">Kinkakuji Temple, Kyoto</div>
+                  <div class="list-item__title"><b>Monsieur P</b></div>
+                  <div class="list-item__subtitle" style="font-size: 12px">Katu, Phuket</div>
                 </div>
                 
               </ons-list-item>
@@ -95,7 +96,7 @@
                 
               </ons-list-item>
       
-              <div class="post-caption"><b>david_graham</b> Golden Temple ^_^ #kyoto #goldentemple</div>
+              <div class="post-caption"><b>Moncieur P</b> Golden Temple </div>
               <div class="post-time">1 HOUR AGO</div>
             </ons-card>
       
@@ -105,8 +106,8 @@
                   <img class="list-item__thumbnail" src="assets/img/profile-image-02.png" >
                 </div>
                 <div class="center">
-                  <div class="list-item__title"><b>david_graham</b></div>
-                  <div class="list-item__subtitle" style="font-size: 12px">Tokyo</div>
+                  <div class="list-item__title"><b>Alphabet P</b></div>
+                  <div class="list-item__subtitle" style="font-size: 12px">Katu, Phuket</div>
                 </div>
                 
               </ons-list-item>
@@ -125,7 +126,7 @@
                 
               </ons-list-item>
       
-              <div class="post-caption"><b>david_graham</b> The harmony sakura brings #sakura #happy #harmony #love</div>
+              <div class="post-caption"><b>Alphabet P</b> The harmony sakura brings</div>
               <div class="post-time">1 HOUR AGO</div>
             </ons-card>
       
@@ -225,11 +226,11 @@
             <ons-button modifier="large" id="takephoto">Take a Photo</ons-button>
           </section>-->
           <section style="padding: 8px;text-align: center;">
-            <ons-input style="width:100%;" input-id="desc" id="desc" modifier="underbar" placeholder="Share what's happen"></ons-input>
+            <ons-input style="width:100%;" input-id="description" id="description" modifier="underbar" placeholder="Share what's happen"></ons-input>
           </section>
           <section style="padding: 8px;text-align: center;">
             <div style="width:100%;height:200px;" id="map-canvas"></div>
-            <ons-button class="bt-color" modifier="large--quiet" id="uppin">PIN</ons-button>
+            <ons-button onClick="save()" class="bt-color" modifier="large--quiet" >PIN</ons-button>
           </section>
           
           <style type="text/css">
@@ -287,7 +288,40 @@
     </template>
 
 
+    <!--data -->
+    <!--
+    <div class="pagebody">
+      <ons-card class="post card-p">
+        <ons-list-item class="post_title">
+         <div class="left">
+           <img class="list-item__thumbnail" src="assets/img/profile-image-08.png" >
+         </div>
+         <div class="center">
+           <div class="list-item__title"><b></b></div>
+           <div class="list-item__subtitle" style="font-size: 12px">Katu, Phuket</div>
+         </div>
+         
+       </ons-list-item>
 
+       <div style="text-align: center; position: relative;" ondblclick="like(2)">
+         <ons-icon size="150px" id="post-like-2" class="post-like" icon="ion-ios-heart"></ons-icon>
+         <img class="post-image" src="assets/img/post-02.jpg">
+       </div>
+
+       <ons-list-item class="post-button-bar" modifier="nodivider">
+         <div class="center" style="padding-top: 0px">
+           <ons-button class="post-button" modifier="quiet" onclick="like(2)"><ons-icon id="button-post-like-2" icon="ion-ios-heart-outline"></ons-icon></ons-button>
+           <ons-button class="post-button" modifier="quiet"><ons-icon icon="ion-ios-more,material:ion-android-more-vertical"></ons-icon></ons-button>
+          
+         </div>
+         
+       </ons-list-item>
+
+       <div class="post-caption"><b>Moncieur P</b> Golden Temple </div>
+       <div class="post-time">1 HOUR AGO</div>
+     </ons-card>
+    </div>
+  -->
 
 
     <!-- body color-->
@@ -317,7 +351,21 @@
             color: #1f1f21;
         }
     </style>
+
     <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAAqirzvb5xK1A00b44Ya123e1xaIF1tDc"></script>
+    <script src="https://www.gstatic.com/firebasejs/4.6.0/firebase.js"></script>
+    <script>
+        // Initialize Firebase
+        var config = {
+            apiKey: "AIzaSyBrGo-o8oDQeVuGEzB79Td_b06xwzQKcN8",
+            authDomain: "psupin-040a.firebaseapp.com",
+            databaseURL: "https://psupin-040a.firebaseio.com",
+            projectId: "psupin-040a",
+            storageBucket: "psupin-040a.appspot.com",
+            messagingSenderId: "930412682377"
+        };
+        firebase.initializeApp(config);
+    </script>
 </body>
 
 </html>
